@@ -12,13 +12,13 @@ Le projet est organisé selon une architecture POO avec **un fichier par classe*
    - Classe: `Email`
    - Rôle: Représente un email avec ses métadonnées
    - Attributs: `mail_from`, `rcpt_to`, `data`, `timestamp`
-   - Méthodes: `set_mail_from()`, `add_recipient()`, `set_data()`, `is_valid()`, `to_string()`
+   - Méthodes: `set_mail_from()`, `add_recipient()`, `set_data()`, `is_valid()`, `to_dict()`, `from_dict()`
 
 2. **mailbox.py**
    - Classe: `MailBox`
-   - Rôle: Gère le stockage des emails dans des fichiers
+   - Rôle: Gère le stockage des emails dans des fichiers JSON
    - Méthodes: `store_email()`, `list_mailboxes()`
-   - Stockage: Crée un fichier `.mbox` par destinataire dans le répertoire `mailboxes/`
+   - Stockage: Crée un fichier `.json` par destinataire dans le répertoire `mailboxes/`
 
 3. **smtp_session.py**
    - Classe: `SMTPSession`
@@ -112,7 +112,7 @@ Le projet est organisé selon une architecture POO avec **un fichier par classe*
    - Réception et traitement des commandes SMTP
    - Création d'un objet `Email`
    - Stockage via `MailBox` à la fin de DATA
-5. **Stockage**: Un fichier `.mbox` est créé/mis à jour pour chaque destinataire
+5. **Stockage**: Un fichier `.json` est créé/mis à jour pour chaque destinataire
 
 ## Tests effectués
 
@@ -123,7 +123,7 @@ Le projet est organisé selon une architecture POO avec **un fichier par classe*
 ✓ Commande DATA (code 354)
 ✓ Stockage du contenu de l'email
 ✓ Commande QUIT (code 221)
-✓ Création des fichiers .mbox
+✓ Création des fichiers .json
 ✓ Stockage correct des emails
 
 ## Conformité Version 1

@@ -65,7 +65,7 @@ Les emails sont stockés dans le répertoire `mailboxes/`:
 
 ```bash
 ls -l mailboxes/
-cat mailboxes/bob_at_example.com.mbox
+cat mailboxes/bob_at_example.com.json
 ```
 
 ## Commandes SMTP supportées

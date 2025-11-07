@@ -80,21 +80,22 @@ Connection closed by foreign host.
 
 Les emails sont stockés dans le répertoire `mailboxes/` :
 - Chaque destinataire a son propre fichier (boîte mail)
-- Format : `destinataire_at_domaine.mbox`
-- Exemple : `bob_at_example.com.mbox`
+- Format : `destinataire_at_domaine.json`
+- Exemple : `bob_at_example.com.json`
 
 ## Structure d'un email stocké
 
-```
-================================================================================
-From: alice@example.com
-Date: Tue, 05 Nov 2024 16:30:00
-To: bob@example.com
+Chaque fichier JSON contient un tableau d'emails :
 
-Subject: Test Email
-
-Ceci est un message de test.
-================================================================================
+```json
+[
+  {
+    "mail_from": "alice@example.com",
+    "rcpt_to": ["bob@example.com"],
+    "data": "Subject: Test Email\n\nCeci est un message de test.",
+    "timestamp": "2024-11-05T16:30:00.000000"
+  }
+]
 ```
 
 ## Codes de réponse SMTP

@@ -61,7 +61,7 @@ if [ -d "mailboxes" ] && [ "$(ls -A mailboxes)" ]; then
     echo ""
     echo "Contenu de la première boîte mail:"
     echo "-----------------------------------"
-    cat mailboxes/*.mbox | head -20
+    cat mailboxes/*.json | head -20
     echo "-----------------------------------"
 else
     echo "✗ Aucune boîte mail créée"

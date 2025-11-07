@@ -41,7 +41,7 @@ Test du serveur SMTP - Version 1
 ## Voir les emails reçus
 
 ```bash
-cat mailboxes/*.mbox
+cat mailboxes/*.json
 ```
 
 ## C'est tout! 🎉

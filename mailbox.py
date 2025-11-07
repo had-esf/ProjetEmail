@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Classe MailBox - Gère le stockage des emails dans des fichiers
+Classe MailBox - Gère le stockage des emails dans des fichiers JSON
 """
 
 import os
+import json
 from email_model import Email
 
 
 class MailBox:
     """
-    Classe pour gérer le stockage des emails dans des fichiers
-    Chaque destinataire a sa propre boîte mail (fichier)
+    Classe pour gérer le stockage des emails dans des fichiers JSON
+    Chaque destinataire a sa propre boîte mail (fichier JSON)
     """
     
     def __init__(self, mailbox_dir: str = "mailboxes"):
@@ -40,7 +41,7 @@ class MailBox:
         """
         # Nettoie l'adresse email pour créer un nom de fichier valide
         safe_name = recipient.replace("@", "_at_").replace("<", "").replace(">", "")
-        return os.path.join(self.mailbox_dir, f"{safe_name}.mbox")
+        return os.path.join(self.mailbox_dir, f"{safe_name}.json")
     
     def store_email(self, email: Email) -> bool:
         """
@@ -60,10 +61,20 @@ class MailBox:
             # Stocke l'email dans la boîte mail de chaque destinataire
             for recipient in email.rcpt_to:
                 mailbox_path = self._get_mailbox_path(recipient)
-                with open(mailbox_path, 'a', encoding='utf-8') as f:
-                    f.write("=" * 80 + "\n")
-                    f.write(email.to_string())
-                    f.write("=" * 80 + "\n\n")
+                
+                # Charge les emails existants ou crée une nouvelle liste
+                emails = []
+                if os.path.exists(mailbox_path):
+                    with open(mailbox_path, 'r', encoding='utf-8') as f:
+                        emails = json.load(f)
+                
+                # Ajoute le nouvel email
+                emails.append(email.to_dict())
+                
+                # Sauvegarde la liste mise à jour
+                with open(mailbox_path, 'w', encoding='utf-8') as f:
+                    json.dump(emails, f, ensure_ascii=False, indent=2)
+                
                 print(f"Email stocké dans {mailbox_path}")
             return True
         except Exception as e:
@@ -80,4 +91,4 @@ class MailBox:
         if not os.path.exists(self.mailbox_dir):
             return []
         
-        return [f for f in os.listdir(self.mailbox_dir) if f.endswith('.mbox')]
+        return [f for f in os.listdir(self.mailbox_dir) if f.endswith('.json')]

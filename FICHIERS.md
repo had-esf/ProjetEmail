@@ -69,7 +69,7 @@ telnet localhost 2525
 ### 3. Consulter les emails reçus
 ```bash
 ls mailboxes/
-cat mailboxes/destinataire_at_domain.mbox
+cat mailboxes/destinataire_at_domain.json
 ```
 
 ## Commandes utiles

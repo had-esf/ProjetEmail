@@ -58,18 +58,35 @@ class Email:
                 len(self.rcpt_to) > 0 and 
                 self.data is not None)
     
-    def to_string(self) -> str:
+    def to_dict(self) -> dict:
         """
-        Convertit l'email en format texte pour stockage
+        Convertit l'email en dictionnaire pour sérialisation JSON
         
         Returns:
-            Représentation textuelle de l'email
+            Dictionnaire contenant les données de l'email
         """
-        result = f"From: {self.mail_from}\n"
-        result += f"Date: {self.timestamp.strftime('%a, %d %b %Y %H:%M:%S')}\n"
-        for recipient in self.rcpt_to:
-            result += f"To: {recipient}\n"
-        result += "\n"
-        result += self.data
-        result += "\n"
-        return result
+        return {
+            "mail_from": self.mail_from,
+            "rcpt_to": self.rcpt_to,
+            "data": self.data,
+            "timestamp": self.timestamp.isoformat()
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Email':
+        """
+        Crée un email à partir d'un dictionnaire
+        
+        Args:
+            data: Dictionnaire contenant les données de l'email
+            
+        Returns:
+            Instance d'Email
+        """
+        email = cls()
+        email.mail_from = data.get("mail_from")
+        email.rcpt_to = data.get("rcpt_to", [])
+        email.data = data.get("data")
+        if "timestamp" in data:
+            email.timestamp = datetime.fromisoformat(data["timestamp"])
+        return email

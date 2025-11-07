@@ -15,7 +15,7 @@
 - ✅ **Commande RCPT** - Gestion d'un ou plusieurs destinataires
 - ✅ **Commande DATA** - Réception du contenu de l'email
 - ✅ **Stockage** - Un fichier par destinataire nommé selon RCPT
-- ✅ **Format** - Stockage dans des fichiers .mbox
+- ✅ **Format** - Stockage dans des fichiers .json
 
 ### Exigences Techniques
 
@@ -90,7 +90,7 @@ QUIT
 
 ```bash
 ls mailboxes/
-cat mailboxes/bob_at_example.com.mbox
+cat mailboxes/bob_at_example.com.json
 ```
 
 ---
@@ -107,7 +107,7 @@ cat mailboxes/bob_at_example.com.mbox
 - [x] Fin de DATA avec point (code 250)
 - [x] Commande QUIT (code 221)
 - [x] Commande RSET (code 250)
-- [x] Stockage dans fichiers .mbox
+- [x] Stockage dans fichiers .json
 - [x] Gestion multi-clients (threading)
 
 ### Résultat des Tests
@@ -175,31 +175,24 @@ Client                  Serveur
 ### Format des Fichiers
 
 - **Répertoire:** `mailboxes/`
-- **Format:** Un fichier `.mbox` par destinataire
-- **Nommage:** `destinataire_at_domaine.mbox`
+- **Format:** Un fichier `.json` par destinataire
+- **Nommage:** `destinataire_at_domaine.json`
 - **Encodage:** UTF-8
 
 ### Exemple de Fichier Stocké
 
-```
-================================================================================
-From: alice@example.com
-Date: Wed, 05 Nov 2025 17:04:16
-To: bob@example.com
-To: charlie@example.com
-
-Subject: Test Email
-From: Alice <alice@example.com>
-To: Bob <bob@example.com>
-
-Bonjour Bob,
-
-Ceci est un message de test.
-
-Cordialement,
-Alice
-
-================================================================================
+```json
+[
+  {
+    "mail_from": "alice@example.com",
+    "rcpt_to": [
+      "bob@example.com",
+      "charlie@example.com"
+    ],
+    "data": "Subject: Test Email\nFrom: Alice <alice@example.com>\nTo: Bob <bob@example.com>\n\nBonjour Bob,\n\nCeci est un message de test.\n\nCordialement,\nAlice",
+    "timestamp": "2025-11-05T17:04:16.123456"
+  }
+]
 ```
 
 ---
