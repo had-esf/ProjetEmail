@@ -8,40 +8,30 @@ Serveur SMTP simple implémentant les commandes minimales pour la version 1 du p
 
 Le projet est organisé en classes, chacune dans son propre fichier :
 
-- **email_model.py** : Classe `Email` - Représente un email avec ses métadonnées (FROM, TO, DATA)
-- **mailbox.py** : Classe `MailBox` - Gère le stockage des emails dans des fichiers
+- **email_model.py** : Classe `Email` - Représente un email avec ses métadonnées
+- **mailbox.py** : Classe `MailBox` - Gère le stockage des emails dans des fichiers json
 - **smtp_session.py** : Classe `SMTPSession` - Gère une session SMTP avec un client
 - **smtp_server.py** : Classe `SMTPServer` - Serveur principal qui écoute les connexions
-- **main.py** : Point d'entrée du programme
+- **main.py** : Fichier controlleur
 
-## Commandes SMTP supportées
+## Commandes SMTP
 
-### Version 1 (Commandes minimales)
-- **MAIL FROM:** - Définit l'expéditeur
-- **RCPT TO:** - Définit un destinataire (peut être appelé plusieurs fois)
-- **DATA** - Commence la saisie du message (terminer par une ligne contenant uniquement un point)
+### Version 1
+- **MAIL FROM:** - Expéditeur
+- **RCPT TO:** - Destinataire(s)
+- **DATA** - Message (se termine par un "." seul)
 - **QUIT** - Ferme la connexion
-- **RSET** - Réinitialise la transaction en cours
-
-## Installation
-
-Aucune dépendance externe requise. Le projet utilise uniquement la bibliothèque standard Python.
-
-```bash
-# Python 3.10+ recommandé
-python3 --version
-```
+- **RSET** - Réinitialise la connexion
 
 ## Utilisation
 
 ### Démarrer le serveur
 
 ```bash
-cd /home/thibault/Bureau/Interop/projetEmail/ProjetEmail/ProjetEmail
 python3 main.py
 ```
 
-Le serveur démarre sur le port 2525 (port non privilégié).
+Le serveur démarre sur le port 2525
 
 ### Tester avec telnet
 
@@ -68,7 +58,6 @@ DATA
 Subject: Test Email
 
 Ceci est un message de test.
-Deuxième ligne du message.
 .
 250 OK
 QUIT
@@ -79,8 +68,7 @@ Connection closed by foreign host.
 ## Stockage des emails
 
 Les emails sont stockés dans le répertoire `mailboxes/` :
-- Chaque destinataire a son propre fichier (boîte mail)
-- Format : `destinataire_at_domaine.json`
+- Chaque destinataire a son propre fichier
 - Exemple : `bob_at_example.com.json`
 
 ## Structure d'un email stocké
@@ -93,7 +81,7 @@ Chaque fichier JSON contient un tableau d'emails :
     "mail_from": "alice@example.com",
     "rcpt_to": ["bob@example.com"],
     "data": "Subject: Test Email\n\nCeci est un message de test.",
-    "timestamp": "2024-11-05T16:30:00.000000"
+    "timestamp": "2025-11-07T16:30:00.000000"
   }
 ]
 ```
@@ -106,10 +94,3 @@ Chaque fichier JSON contient un tableau d'emails :
 - **354** - Start mail input
 - **500** - Syntax error, command unrecognized
 - **503** - Bad sequence of commands
-
-## Notes
-
-- Le serveur utilise le port 2525 pour éviter les problèmes de permissions (le port 25 nécessite sudo)
-- Le serveur supporte plusieurs connexions simultanées grâce au threading
-- Les emails sont stockés immédiatement après la commande DATA
-- Le serveur affiche les commandes reçues et les réponses envoyées dans la console
