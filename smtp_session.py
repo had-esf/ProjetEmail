@@ -14,6 +14,7 @@ class SMTPSession:
     CLOSING = "221 Service closing transmission channel\r\n"
     SYNTAX_ERROR = "500 Syntax error, command unrecognized\r\n"
     BAD_SEQUENCE = "503 Bad sequence of commands\r\n"
+    COMMAND_NOT_IMPLEMENTED = "502 Command not implemented\r\n"
     
     def __init__(self, client_socket: socket.socket, mailbox: MailBox):
         self.client_socket = client_socket
@@ -22,6 +23,7 @@ class SMTPSession:
         self.in_data_mode = False
         self.mail_from_received = False
         self.rcpt_to_received = False
+        self.helo_received = False
     
     # Envoie une réponse au client
     def send_response(self, response: str) -> None:
@@ -78,7 +80,11 @@ class SMTPSession:
         cmd = parts[0].upper() if parts else ""
         args = parts[1] if len(parts) > 1 else ""
         
-        if cmd == "MAIL":
+        if cmd == "EHLO":
+            return self.handle_ehlo(args)
+        elif cmd == "HELO":
+            return self.handle_helo(args)
+        elif cmd == "MAIL":
             return self.handle_mail(args)
         elif cmd == "RCPT":
             return self.handle_rcpt(args)
@@ -91,6 +97,17 @@ class SMTPSession:
         else:
             self.send_response(self.SYNTAX_ERROR)
             return True
+    
+    # Commande EHLO (version étendue non supportée)
+    def handle_ehlo(self, args: str) -> bool:
+        self.send_response(self.COMMAND_NOT_IMPLEMENTED)
+        return True
+    
+    # Commande HELO
+    def handle_helo(self, args: str) -> bool:
+        self.helo_received = True
+        self.send_response(self.OK)
+        return True
     
     # Commande MAIL FROM
     def handle_mail(self, args: str) -> bool:

@@ -3,6 +3,7 @@
 ## Description
 
 Serveur SMTP simple implémentant les commandes minimales pour la version 1 du projet.
+Lien vers la vidéo youtube de démonstration : https://youtu.be/xWrajwIOm_M
 
 ## Architecture POO
 
