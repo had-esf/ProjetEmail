@@ -34,6 +34,21 @@ python3 main.py
 
 Le serveur démarre sur le port 2525
 
+### Tester avec Thunderbird
+
+Configurer Thunderbird :
+
+Serveur sortant (SMTP)
+```bash
+Nom du serveur : localhost
+Port : 2525
+Sécurité de la connexion : Aucune
+Méthode d’authentification : Aucune
+Nom d’utilisateur : (vide)
+```
+
+Envoyer un mail de manière classique
+
 ### Tester avec telnet
 
 Ouvrir un nouveau terminal et se connecter au serveur :
