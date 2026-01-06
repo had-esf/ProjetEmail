@@ -48,6 +48,22 @@ class MailBox:
         except Exception as e:
             print(f"Erreur lors du stockage de l'email: {e}")
             return False
+
+    # Charge les emails d'un destinataire
+    def load_emails(self, recipient: str) -> list[dict]:
+        mailbox_path = self._get_mailbox_path(recipient)
+        if not os.path.exists(mailbox_path):
+            return []
+
+        try:
+            with open(mailbox_path, 'r', encoding='utf-8') as f:
+                emails = json.load(f)
+                if isinstance(emails, list):
+                    return emails
+        except Exception as e:
+            print(f"Erreur lors du chargement de la boîte {mailbox_path}: {e}")
+
+        return []
     
     # Liste les boîtes mail existantes
     def list_mailboxes(self) -> list[str]:
