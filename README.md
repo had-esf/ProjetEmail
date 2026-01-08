@@ -58,16 +58,32 @@ Le serveur POP3 démarre sur le port 2110
 
 Configurer Thunderbird :
 
+Serveur Entrant (POP3)
+```bash
+Protocole : POP3
+Nom du serveur : localhost
+Port : 2110
+Sécurité de la connexion : Aucune
+Méthode d’authentification : Mot de passe simple
+Nom d’utilisateur : Adresse mail voulu
+```
+
 Serveur sortant (SMTP)
 ```bash
 Nom du serveur : localhost
 Port : 2525
 Sécurité de la connexion : Aucune
 Méthode d’authentification : Aucune
-Nom d’utilisateur : (vide)
+Nom d’utilisateur : adresse mail voulu
 ```
+Aller dans Paramètres -> Parmètres des comptes -> Paramètres serveur (sur l'adresse mail qui reçoit) -> Décocher "laisser les messages sur le serveur"
+
+La gestion des messages sur le serveur demande l'utilisation de commandes non implémentées
 
 Envoyer un mail de manière classique
+
+Actualiser la boîte mail de réception
+
 
 ### Tester avec telnet
 
@@ -99,6 +115,13 @@ Ceci est un message de test.
 QUIT
 221 Service closing transmission channel
 Connection closed by foreign host.
+```
+
+Ouvrir un nouveau terminal et se connecter a POP3 :
+
+```bash
+telnet localhost 2110
+```
 
 ### Exemple de session POP3
 
