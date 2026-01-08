@@ -120,7 +120,7 @@ class POP3Session:
             return False
         return True
 
-    # USER <recipient>
+    # USER <mail>
     def handle_user(self, args: str) -> bool:
         user = args.strip().strip('<>').strip()
         if not user:
