@@ -78,7 +78,7 @@ Nom d’utilisateur : adresse mail voulu
 ```
 Aller dans Paramètres -> Parmètres des comptes -> Paramètres serveur (sur l'adresse mail qui reçoit) -> Décocher "laisser les messages sur le serveur"
 
-La conservation des messages sur le serveur demande l'utilisation de commandes non implémentées
+La conservation des messages sur le serveur via thunderbird demande la gestion de commandes non implémentées
 
 Envoyer un mail de manière classique
 
