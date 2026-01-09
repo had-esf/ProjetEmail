@@ -3,7 +3,7 @@
 ## Description
 
 Serveur SMTP simple (versions 1 et 2) + ajout d'un serveur POP3 minimal (version 3).
-Lien vers la vidéo youtube de démonstration : https://youtu.be/xWrajwIOm_M
+Lien vers la vidéo youtube de démonstration : https://youtu.be/KvZJQQ7KM_M
 
 ## Architecture POO
 
